@@ -5,9 +5,14 @@
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>kpobb1989</Authors>
-    <Company>home</Company>
-    <Description>DotNetCoreInjectorExtensions</Description>
-    <Version>1.0.0-beta</Version>
+    <Company>Home</Company>
+    <Description>DotNetCoreInjectorExtensions extends native .net core dependency injection. It gives you possibility to inject properties into your objects (similar approach is implemented in Autofac through PropertiesAutowired methods). More details you can find on github =&gt; https://github.com/kpobb1989/DotNetCoreInjectorExtensions</Description>
+    <Version>1.0.3-beta</Version>
+    <PackageProjectUrl>https://github.com/kpobb1989/DotNetCoreInjectorExtensions</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/kpobb1989/DotNetCoreInjectorExtensions</PackageIconUrl>
+    <RepositoryUrl>https://github.com/kpobb1989/DotNetCoreInjectorExtensions</RepositoryUrl>
+    <PackageReleaseNotes>Added ServiceProviderNotFoundException.
+Minor code improvemenets.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

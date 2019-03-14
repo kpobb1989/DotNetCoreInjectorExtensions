@@ -1,4 +1,5 @@
 ﻿using System;
+using DotNetCoreInjectorExtensions.Exteptions;
 
 namespace DotNetCoreInjectorExtensions.Components
 {
@@ -26,7 +27,7 @@ namespace DotNetCoreInjectorExtensions.Components
 		{
 			if (_serviceProvider == null)
 			{
-				throw new Exception($"ServiceProvider is not configured yet. Try to call {nameof(SetupServiceProvider)}");
+				throw new ServiceProviderNotFoundException($"ServiceProvider is not configured yet. You can set it up using {nameof(SetupServiceProvider)} method");
 			}
 
 			return _serviceProvider.GetService(type);
@@ -39,7 +40,7 @@ namespace DotNetCoreInjectorExtensions.Components
 		/// <returns>Resolved object</returns>
 		public T GetService<T>() where T : class
 		{
-			return _serviceProvider.GetService(typeof(T)) as T;
+			return GetService(typeof(T)) as T;
 		}
 	}
 }
