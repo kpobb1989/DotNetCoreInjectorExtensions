@@ -47,15 +47,15 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 
 * `DependencyResolver` can be used to resolve a particular dependency or get `IServiceProvider` itself (similar approach was on Asp.Net MVC). See samples below:
 
-	Get service object by type
+	* Get service object by type
 
 	`var serviceObject = DependencyResolver.Current.GetService<IServiceObject>();`
 
 	`var serviceObject = DependencyResolver.Current.GetService(typeof(IServiceObject));`
 
-	Get actual `IServiceProvider`
+	* Get actual `IServiceProvider`
 
-`var currentServiceProvider = DependencyResolver.Current.GetServiceProvider();`
+	`var currentServiceProvider = DependencyResolver.Current.GetServiceProvider();`
 
 * `DependencyInjector` can be used to inject properties using `IServiceProvider` to a particular object:
 
