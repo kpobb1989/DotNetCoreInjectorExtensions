@@ -35,7 +35,7 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 
 `DependencyResolver.Current.SetupServiceProvider(serviceProvider);`
 
-### Extra features:
+### Extra components:
 
 * `IgnorePropertyAutowiredAttribute` can be used to avoid injection for a certain property:
 
@@ -58,4 +58,13 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 	`var currentServiceProvider = DependencyResolver.Current.GetServiceProvider();`
 
 * `DependencyInjector` can be used to inject properties using `IServiceProvider` to a particular object:
+
 	`DependencyInjector.Current.InjectProperties(_serviceProvider, objectWithProperties);`
+	
+* `Singleton` can be applied to your class to support singleton.
+
+	public class YourClass : Singleton<YourClass>
+	{
+	}
+
+	`var yourClass = YourClass.Current`
