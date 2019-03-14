@@ -29,8 +29,13 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 		  app.UseHttpContextPropertiesAutowired();
 		  ...
 		}
+		
+### Notes:		
+ServiceProviderNotFoundException is thrown when `ServiceProvider` is not configured yet. In order to fix it, you have to setup `ServiceProvider` through `SetupServiceProvider` method.
 
-Extra features:
+`DependencyResolver.Current.SetupServiceProvider(serviceProvider);`
+
+### Extra features:
 
 * `IgnorePropertyAutowiredAttribute` can be used to avoid injection for a certain property:
 
@@ -40,11 +45,15 @@ Extra features:
 			public object PropertyToInject { get; set; }
 		}
 
-* `DependencyResolver` can be used to resolve a particular dependency or to get `IServiceProvider` itself (similar approach was on Asp.Net MVC). See samples below:
+* `DependencyResolver` can be used to resolve a particular dependency or get `IServiceProvider` itself (similar approach was on Asp.Net MVC). See samples below:
 
-`DependencyResolver.Current.GetService<YourObjectType>()` - returns instance of YourObjectType
-`DependencyResolver.Current.GetService(YourObjectType)` - returns instance of YourObjectType
-`DependencyResolver.Current.GetServiceProvider();` - returns current `IServiceProvider`
+Get service object by type
+`var serviceObject = DependencyResolver.Current.GetService<IServiceObject>();`
+`var serviceObject = DependencyResolver.Current.GetService(typeof(IServiceObject));`
+
+Get actual `IServiceProvider`
+`var currentServiceProvider = DependencyResolver.Current.GetServiceProvider();`
 
 * `DependencyInjector` can be used to inject properties using `IServiceProvider` to a particular object:
+
 `DependencyInjector.Current.InjectProperties(_serviceProvider, objectWithProperties);`
