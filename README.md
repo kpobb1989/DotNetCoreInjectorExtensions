@@ -39,6 +39,7 @@ Extra features:
 		[IgnorePropertyAutowired]
 		public object PropertyToInject { get; set; }
 	}
+	
 * `DependencyResolver` - you can use it to reach current `IServiceProvider`. (similar approach was on Asp.Net MVC) and you even don't need to inject it, see a sample below:
 
 `DependencyResolver.Current.GetService<YourObjectType>()` - returns instance of YourObjectType
