@@ -40,8 +40,10 @@ Extra features:
 			public object PropertyToInject { get; set; }
 		}
 
-* `DependencyResolver` - you can use it to reach current `IServiceProvider`. (similar approach was on Asp.Net MVC) and you even don't need to inject it, see a sample below:
+* `DependencyResolver` - you can use it to resolve a particular dependency or to get `IServiceProvider` itself (similar approach was on Asp.Net MVC). See a sample below:
 
 `DependencyResolver.Current.GetService<YourObjectType>()` - returns instance of YourObjectType
+`DependencyResolver.Current.GetService(YourObjectType)` - returns instance of YourObjectType
 `DependencyResolver.Current.GetServiceProvider();` - returns current `IServiceProvider`
 
+* `DependencyInjector` - you can use it to inject properties to a particular class.
