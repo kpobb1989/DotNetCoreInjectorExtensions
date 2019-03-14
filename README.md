@@ -68,4 +68,5 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 		}
 		
 	Sample usage:
+	
 	`var yourClass = YourClass.Current`
