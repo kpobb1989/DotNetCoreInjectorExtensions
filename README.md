@@ -31,7 +31,7 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 		}
 		
 ### Notes:		
-ServiceProviderNotFoundException is thrown when `ServiceProvider` is not configured yet. In order to fix it, you have to setup `ServiceProvider` through `SetupServiceProvider` method.
+`ServiceProviderNotFoundException` is thrown when `ServiceProvider` is not configured yet. In order to fix it, you have to setup `ServiceProvider` through `SetupServiceProvider` method.
 
 `DependencyResolver.Current.SetupServiceProvider(serviceProvider);`
 
@@ -48,10 +48,13 @@ ServiceProviderNotFoundException is thrown when `ServiceProvider` is not configu
 * `DependencyResolver` can be used to resolve a particular dependency or get `IServiceProvider` itself (similar approach was on Asp.Net MVC). See samples below:
 
 Get service object by type
+
 `var serviceObject = DependencyResolver.Current.GetService<IServiceObject>();`
+
 `var serviceObject = DependencyResolver.Current.GetService(typeof(IServiceObject));`
 
 Get actual `IServiceProvider`
+
 `var currentServiceProvider = DependencyResolver.Current.GetServiceProvider();`
 
 * `DependencyInjector` can be used to inject properties using `IServiceProvider` to a particular object:
