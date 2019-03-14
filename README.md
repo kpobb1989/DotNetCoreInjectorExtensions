@@ -62,7 +62,7 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 
 	`DependencyInjector.Current.InjectProperties(_serviceProvider, objectWithProperties);`
 	
-* `Singleton` can be applied to your class to support singleton:
+* `Singleton` can be applied to your class to support singleton (thread safe):
 
 		public class YourClass : Singleton<YourClass>
 		{
