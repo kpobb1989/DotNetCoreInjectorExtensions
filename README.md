@@ -9,13 +9,13 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 
 2. Open `Startup.cs` (or whatever you use for the startup)
 
-2.1 Find `ConfigureServices` method
+⋅⋅1. Find `ConfigureServices` method
 
-2.1.1 Change returned type from `void` to `IServiceProvider`
+⋅⋅2. Change returned type from `void` to `IServiceProvider`
 
-2.1.2 Add `return DependencyResolver.Current.GetServiceProvider()` at the end of the method;
+⋅⋅3. Add `return DependencyResolver.Current.GetServiceProvider()` at the end of the method;
 
-2.1.2 Add `services.AddPropertiesAutowired();`
+⋅⋅4. Add `services.AddPropertiesAutowired();`
 
 		public IServiceProvider ConfigureServices(IServiceCollection services)
 		{
@@ -25,9 +25,9 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 			return DependencyResolver.Current.GetServiceProvider();
 		}
 
-2.2  Find `Configure` method
+3  Find `Configure` method
 
-2.2.1 Add `app.UseHttpContextPropertiesAutowired();`
+⋅⋅1. Add `app.UseHttpContextPropertiesAutowired();`
 
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
