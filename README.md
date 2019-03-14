@@ -29,3 +29,18 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 		  app.UseHttpContextPropertiesAutowired();
 		  ...
 		}
+
+Extra features:
+
+* `IgnorePropertyAutowiredAttribute` - you can use it if you don't wanna inject a certain property:
+
+	public class TestClass
+	{
+		[IgnorePropertyAutowired]
+		public object PropertyToInject { get; set; }
+	}
+* `DependencyResolver` - you can use it to reach current `IServiceProvider`. (similar approach was on Asp.Net MVC) and you even don't need to inject it, see a sample below:
+
+`DependencyResolver.Current.GetService<YourObjectType>()` - returns instance of YourObjectType
+`DependencyResolver.Current.GetServiceProvider();` - returns current `IServiceProvider`
+
