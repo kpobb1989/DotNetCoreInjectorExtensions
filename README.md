@@ -32,7 +32,7 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 
 Extra features:
 
-* `IgnorePropertyAutowiredAttribute` - you can use it if you don't wanna inject a certain property:
+* `IgnorePropertyAutowiredAttribute` can be used to avoid injection for a certain property:
 
 		public class TestClass
 		{
@@ -40,10 +40,12 @@ Extra features:
 			public object PropertyToInject { get; set; }
 		}
 
-* `DependencyResolver` - you can use it to resolve a particular dependency or to get `IServiceProvider` itself (similar approach was on Asp.Net MVC). See a sample below:
+* `DependencyResolver` can be used to resolve a particular dependency or to get `IServiceProvider` itself (similar approach was on Asp.Net MVC). See samples below:
 
 `DependencyResolver.Current.GetService<YourObjectType>()` - returns instance of YourObjectType
 `DependencyResolver.Current.GetService(YourObjectType)` - returns instance of YourObjectType
 `DependencyResolver.Current.GetServiceProvider();` - returns current `IServiceProvider`
 
-* `DependencyInjector` - you can use it to inject properties to a particular class.
+* `DependencyInjector` can be used to inject properties using `IServiceProvider` to a particular object:
+
+DependencyInjector.Current.InjectProperties(_serviceProvider, objectWithProperties);
