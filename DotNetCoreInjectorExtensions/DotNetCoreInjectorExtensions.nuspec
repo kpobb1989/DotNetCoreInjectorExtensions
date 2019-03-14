@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DotNetCoreInjectorExtensions</id>
+    <version>1.0.0-beta</version>
+    <title>DotNetCoreInjectorExtensions</title>
+    <authors>DotNetDeveloper</authors>
+    <owners></owners>
+    <licenseUrl>https://github.com/sportjoy/DotNetCoreInjectorExtensions</licenseUrl>
+    <projectUrl>https://github.com/sportjoy/DotNetCoreInjectorExtensions</projectUrl>
+    <iconUrl>https://github.com/sportjoy/DotNetCoreInjectorExtensions</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>DotNetCoreInjectorExtensions</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags></tags>
+  </metadata>
+    <files>
+    <file src="bin\Release\*.*"/>
+  </files>
+</package>
