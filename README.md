@@ -58,5 +58,4 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 	`var currentServiceProvider = DependencyResolver.Current.GetServiceProvider();`
 
 * `DependencyInjector` can be used to inject properties using `IServiceProvider` to a particular object:
-
-`DependencyInjector.Current.InjectProperties(_serviceProvider, objectWithProperties);`
+	`DependencyInjector.Current.InjectProperties(_serviceProvider, objectWithProperties);`
