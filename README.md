@@ -8,8 +8,7 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 `Install-Package DotNetCoreInjectorExtensions -Version 1.0.1-beta`
 
 2. Open `Startup.cs` (or whatever you use for the startup)
-
-⋅⋅1. Find `ConfigureServices` method
+* Find `ConfigureServices` method
 
 ⋅⋅2. Change returned type from `void` to `IServiceProvider`
 
