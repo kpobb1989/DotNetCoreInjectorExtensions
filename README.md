@@ -6,7 +6,7 @@ It extends native .Net Core Dependency Injection. It gives you possibility to in
 
 1. Install a package in your Asp.Net Core Solution
 
-`Install-Package DotNetCoreInjectorExtensions -Version 1.0.1-beta`
+`Install-Package DotNetCoreInjectorExtensions -Version 1.0.3-beta`
 
 2. Open `Startup.cs` (or whatever you use for the startup)
 * Find `ConfigureServices` method
