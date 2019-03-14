@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DotNetCoreInjectorExtensions.Exteptions
+namespace DotNetCoreInjectorExtensions.Exceptions
 {
 	public sealed class ServiceProviderNotFoundException : Exception
 	{

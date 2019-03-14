@@ -1,5 +1,5 @@
 ﻿using System;
-using DotNetCoreInjectorExtensions.Exteptions;
+using DotNetCoreInjectorExtensions.Exceptions;
 
 namespace DotNetCoreInjectorExtensions.Components
 {
