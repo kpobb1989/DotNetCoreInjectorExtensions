@@ -1,4 +1,11 @@
-﻿using DotNetCoreInjectorExtensions.Components;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using DotNetCoreInjectorExtensions.Attributes;
+using DotNetCoreInjectorExtensions.Components;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DotNetCoreInjectorExtensions.Extensions
@@ -12,6 +19,55 @@ namespace DotNetCoreInjectorExtensions.Extensions
 			var serviceProviderDecorated = new ServiceProviderDecorator(serviceProvider);
 
 			DependencyResolver.Current.SetupServiceProvider(serviceProviderDecorated);
+		}
+
+		public static void AddCoinfigurationAutowired(this IServiceCollection services, IConfiguration configuration)
+		{
+			var configurations = Assembly.GetEntryAssembly().DefinedTypes.Where(s => s.GetCustomAttributes<ConfigurationAutowiredAttribute>().Any());
+
+			foreach (var config in configurations)
+			{
+				var name = config.Name.Replace("Configuration", "");
+
+				var instance = Activator.CreateInstance(config.AsType());
+					
+				ConfigureInvoke(services, configuration, name, (dynamic) instance);
+			}
+		}
+
+		private static void ConfigureInvoke<T>(IServiceCollection services, IConfiguration configuration, string name, IList<T> value)
+		{
+			typeof(OptionsConfigurationServiceCollectionExtensions)
+				.GetMethod("Configure", new[] { typeof(IServiceCollection), typeof(IConfiguration) })
+				.MakeGenericMethod(value.GetType())
+				.Invoke(null, new object[] { services, configuration.GetSection(name) });
+		}
+
+		private static void ConfigureInvoke<T>(IServiceCollection services, IConfiguration configuration, string name, IDictionary<uint, T> value)
+		{
+			void Act(dynamic s)
+			{
+				ToDictionary(name, configuration, s);
+			}
+
+			typeof(OptionsServiceCollectionExtensions)
+				.GetMethod("Configure", new[] { typeof(IServiceCollection), typeof(Action<object>) })
+				.MakeGenericMethod(value.GetType())
+				.Invoke(null, new object[] { services, (Action<dynamic>) Act });
+		}
+
+
+		private static void ToDictionary<TValue>(string sectionName, IConfiguration configuration, IDictionary<uint, TValue> dest)
+		{
+			var dictionary = configuration
+				.GetSection(sectionName)
+				.Get<Dictionary<string, TValue>>()
+				.ToDictionary(x => uint.Parse(x.Key), x => x.Value);
+
+			foreach (var item in dictionary)
+			{
+				dest.Add(item.Key, item.Value);
+			}
 		}
 	}
 }
