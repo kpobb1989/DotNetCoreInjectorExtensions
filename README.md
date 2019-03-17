@@ -34,6 +34,7 @@ DotNetCoreInjectorExtensions solves some restrictions that are currently exists 
 
 ## How to use a conception of configuration resolving?
 1. Open appsettings.json and add your configuration, like:
+
 		{
 		  "Currencies": [
 		    {
