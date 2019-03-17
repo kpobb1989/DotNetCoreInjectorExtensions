@@ -15,7 +15,7 @@ namespace DotNetCoreInjectorExtensions.Components
 		{
 			var service = _provider.GetService(serviceType);
 
-			DependencyInjector.Current.InjectProperties(_provider, service);
+			DependencyInjector.Current.InjectProperties(service);
 
 			return service;
 		}

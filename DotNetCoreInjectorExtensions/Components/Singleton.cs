@@ -2,7 +2,7 @@
 {
 	public abstract class Singleton<T> where T: class, new()
 	{
-		private static T _resolver;
+		private static T _instance;
 
 		private static readonly object Locker = new object();
 
@@ -10,16 +10,16 @@
 		{
 			get
 			{
-				if (_resolver == null)
+				if (_instance == null)
 				{
 					lock (Locker)
 					{
-						if (_resolver == null)
-							_resolver = new T();
+						if (_instance == null)
+							_instance = new T();
 					}
 				}
 
-				return _resolver;
+				return _instance;
 			}
 		}
 	}

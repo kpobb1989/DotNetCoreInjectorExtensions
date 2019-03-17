@@ -19,6 +19,8 @@ namespace DotNetCoreInjectorExtensions.Extensions
 			var serviceProviderDecorated = new ServiceProviderDecorator(serviceProvider);
 
 			DependencyResolver.Current.SetupServiceProvider(serviceProviderDecorated);
+
+			DependencyInjector.Current.SetupServiceProvider(serviceProviderDecorated);
 		}
 
 		public static void AddCoinfigurationAutowired(this IServiceCollection services, IConfiguration configuration)
