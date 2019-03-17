@@ -1,6 +1,6 @@
 # DotNetCoreInjectorExtensions
 
-DotNetCoreInjectorExtensions solves some restrictions that are currently exists in ASP.NET CORE. At the moment ASP.NET CORE doesn't allow you to inject properties into your objects. DotNetCoreInjectorExtensions  extends the native dependency injection in a manner it's done in Autofac via PropertiesAutowire. Moreover it gives you a possibility to resolve dependencies using DependencyResolver (this approach should be known for the ones who worked with ASP.NET MVC). Also it provides you an interesting conception of resolving configurations. This is an open source solution. More details you can find on github.
+DotNetCoreInjectorExtensions solves some restrictions that are currently exists in ASP.NET CORE. At the moment ASP.NET CORE doesn't allow you to inject properties into your objects. DotNetCoreInjectorExtensions  extends the native dependency injection in a manner it's done in Autofac via PropertiesAutowire. Moreover it gives you a possibility to resolve dependencies using DependencyResolver (this approach should be known for the ones who worked with ASP.NET MVC). Also it provides you an interesting conception of resolving configurations.
 
 
 ## How to enable properties injection?
