@@ -73,7 +73,7 @@ DotNetCoreInjectorExtensions solves some restrictions that are currently exists 
 			[ConfigurationAutowired]
 			public sealed class CurrenciesConfiguration : List<Currency>
 			
-4. Find your `Startup` class and your configuration, like:
+4. Find your `Startup` class and create your configuration, like:
 
 			public IConfiguration Configuration { get; } // Don't forget to make this public property
 			
