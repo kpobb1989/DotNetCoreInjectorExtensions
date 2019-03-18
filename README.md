@@ -7,7 +7,7 @@ DotNetCoreInjectorExtensions solves some restrictions that are currently exists 
 
 1. Install a package in your Asp.Net Core Solution
 
-	`Install-Package DotNetCoreInjectorExtensions -Version 1.0.3-beta`
+	`Install-Package DotNetCoreInjectorExtensions -Version 1.0.5-beta`
 
 2. Open `Startup.cs` (or whatever you use for the startup)
 * Find `ConfigureServices` method
@@ -90,7 +90,7 @@ DotNetCoreInjectorExtensions solves some restrictions that are currently exists 
 
 		services.AddCoinfigurationAutowired(Configuration);
 		
-### Extra components:
+### Extras:
 
 * `IgnorePropertyAutowiredAttribute` can be used to avoid injection for a certain property:
 
@@ -104,17 +104,27 @@ DotNetCoreInjectorExtensions solves some restrictions that are currently exists 
 
 	* Get service object by type
 
-	`var serviceObject = DependencyResolver.Current.GetService<IServiceObject>();`
+	`object serviceObject = DependencyResolver.Current.GetService(typeof(IServiceObject));`
 
-	`var serviceObject = DependencyResolver.Current.GetService(typeof(IServiceObject));`
+	`IServiceObject serviceObject = DependencyResolver.Current.GetService<IServiceObject>();`
+
+	`IEnumerable<object> serviceObjects = DependencyResolver.Current.GetServices(typeof(IServiceObject));`
+
+	`IEnumerable<T> serviceObjects = DependencyResolver.Current.GetServices<T>();`
+	
+	`object serviceObject = DependencyResolver.Current.GetRequiredService(typeof(IServiceObject));`
+	
+	`IServiceObject serviceObject = DependencyResolver.Current.GetRequiredService<IServiceObject>();`
+
+	`IServiceScope scope = DependencyResolver.Current.CreateScope();`
 
 	* Get actual `IServiceProvider`
 
 	`var currentServiceProvider = DependencyResolver.Current.GetServiceProvider();`
 
-* `DependencyInjector` can be used to inject properties to a particular object using `IServiceProvider`:
+* `DependencyInjector` can be used to inject properties to a particular object.
 
-	`DependencyInjector.Current.InjectProperties(_serviceProvider, objectWithProperties);`
+	`DependencyInjector.Current.InjectProperties(objectWithProperties);`
 	
 * `Singleton` can be applied to your class to support singleton (thread safe):
 
@@ -124,7 +134,7 @@ DotNetCoreInjectorExtensions solves some restrictions that are currently exists 
 		
 	Sample of usage:
 	
-	`var yourClass = YourClass.Current`
+	`var yourClassInstance = YourClass.Current`
 	
 ### Exceptions:		
 `ServiceProviderNotFoundException` is thrown when `ServiceProvider` is not configured yet. In order to fix it, you have to setup `ServiceProvider` through `SetupServiceProvider` method.
