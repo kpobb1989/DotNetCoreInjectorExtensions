@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DotNetCoreInjectorExtensions.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,14 +26,6 @@ namespace DotNetCoreInjectorExtensions.Components
 		/// <returns>IServiceProvider</returns>
 		public IServiceProvider GetServiceProvider() => _serviceProvider;
 
-		private void CheckServiceProvider()
-		{
-			if (_serviceProvider == null)
-			{
-				throw new ServiceProviderNotFoundException($"ServiceProvider is not configured yet. You can set it up using {nameof(SetupServiceProvider)} method");
-			}
-		}
-
 		/// <summary>
 		/// Get the service object of <paramref name="serviceType" /> 
 		/// </summary>
@@ -39,7 +33,10 @@ namespace DotNetCoreInjectorExtensions.Components
 		/// <returns>Resolved object</returns>
 		public object GetService(Type serviceType)
 		{
-			CheckServiceProvider();
+			if (_serviceProvider == null)
+			{
+				throw new ServiceProviderNotFoundException($"ServiceProvider is not configured yet. You can set it up using {nameof(SetupServiceProvider)} method");
+			}
 
 			return _serviceProvider.GetService(serviceType);
 		}
@@ -49,11 +46,9 @@ namespace DotNetCoreInjectorExtensions.Components
 		/// </summary>
 		/// <typeparam name="T">Type for resolving</typeparam>
 		/// <returns>Resolved object</returns>
-		public T GetService<T>() 
+		public T GetService<T>()
 		{
-			CheckServiceProvider();
-
-			return _serviceProvider.GetService<T>();
+			return (T)GetService(typeof(T));
 		}
 
 		/// <summary>
@@ -63,9 +58,11 @@ namespace DotNetCoreInjectorExtensions.Components
 		/// <returns>An enumeration of services of type <paramref name="serviceType" />.</returns>
 		public IEnumerable<object> GetServices(Type serviceType)
 		{
-			CheckServiceProvider();
+			Type serviceType1 = typeof(IEnumerable<>).MakeGenericType(serviceType);
 
-			return _serviceProvider.GetServices(serviceType);
+			var result = (IEnumerable<object>)GetRequiredService(serviceType1);
+
+			return result;
 		}
 
 		/// <summary>
@@ -75,44 +72,54 @@ namespace DotNetCoreInjectorExtensions.Components
 		/// <returns>An enumeration of services of type <typeparamref name="T" />.</returns>
 		public IEnumerable<T> GetServices<T>()
 		{
-			CheckServiceProvider();
-
-			return _serviceProvider.GetServices<T>();
+			return (IEnumerable<T>)GetServices(typeof(T));
 		}
 
 		/// <summary>
 		/// Returns a service object of <paramref name="serviceType" />. Throws an InvalidOperationException if there is no service of type serviceType.
 		/// </summary>
 		/// <param name="serviceType">Service type</param>
-		/// <returns>object</returns>
+		/// <returns>Resolved object or exception</returns>
 		public object GetRequiredService(Type serviceType)
 		{
-			CheckServiceProvider();
+			if (serviceType == null)
+				throw new ArgumentNullException(nameof(serviceType));
 
-			return _serviceProvider.GetRequiredService(serviceType);
+			object service = GetService(serviceType);
+
+			if (service is IEnumerable enumerable && !enumerable.Cast<object>().Any())
+			{
+				throw new InvalidOperationException($"{serviceType.Name} service is not found.");
+			}
+
+			if (service != null)
+				return service;
+
+			throw new InvalidOperationException($"{serviceType.Name} service is not found.");
 		}
 
 		/// <summary>
 		/// Returns a service object of <typeparamref name="T" />. Throws an InvalidOperationException if there is no service of type serviceType.
 		/// </summary>
 		/// <typeparam name="T">Service type</typeparam>
-		/// <returns>Service type</returns>
+		/// <returns>Resolved object or exception</returns>
 		public T GetRequiredService<T>() where T : class
 		{
-			CheckServiceProvider();
+			object service = GetService<T>();
 
-			return _serviceProvider.GetRequiredService<T>();
+			if (service != null)
+				return (T)service;
+
+			throw new InvalidOperationException($"{typeof(T).Name} service is not found.");
 		}
 
 		/// <summary>
 		/// Creates a new <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScope" /> that can be used to resolve scoped services.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>IServiceScope</returns>
 		public IServiceScope CreateScope()
 		{
-			CheckServiceProvider();
-
-			return _serviceProvider.CreateScope();
+			return GetRequiredService<IServiceScopeFactory>().CreateScope();
 		}
 	}
 }
