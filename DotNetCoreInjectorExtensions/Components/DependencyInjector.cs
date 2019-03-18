@@ -13,7 +13,6 @@ namespace DotNetCoreInjectorExtensions.Components
 		/// <summary>
 		/// Setup current ServiceProvider
 		/// </summary>
-		/// <param name="serviceProvider">ServiceProvider<
 		public void SetupServiceProvider(IServiceProvider serviceProvider)
 		{
 			_serviceProvider = serviceProvider;
