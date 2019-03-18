@@ -19,7 +19,7 @@ DotNetCoreInjectorExtensions solves some restrictions that are currently exists 
 		{
 			...
 			services.AddPropertiesAutowired();
-			...
+			
 			return DependencyResolver.Current.GetServiceProvider();
 		}
 
