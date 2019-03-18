@@ -32,12 +32,20 @@ namespace DotNetCoreInjectorExtensions.Extensions
 				var name = config.Name.Replace("Configuration", "");
 
 				var instance = Activator.CreateInstance(config.AsType());
-					
-				ConfigureInvoke(services, configuration, name, (dynamic) instance);
+
+				if (instance is IDictionary)
+				{
+					ConfigureDictionary(services, configuration, name, (dynamic)instance);
+				}
+				else
+				{
+					Configure(services, configuration, name, (dynamic)instance);
+				}
 			}
 		}
 
-		private static void ConfigureInvoke<T>(IServiceCollection services, IConfiguration configuration, string name, IList<T> value)
+
+		private static void Configure<T>(IServiceCollection services, IConfiguration configuration, string name, T value)
 		{
 			typeof(OptionsConfigurationServiceCollectionExtensions)
 				.GetMethod("Configure", new[] { typeof(IServiceCollection), typeof(IConfiguration) })
@@ -45,7 +53,7 @@ namespace DotNetCoreInjectorExtensions.Extensions
 				.Invoke(null, new object[] { services, configuration.GetSection(name) });
 		}
 
-		private static void ConfigureInvoke<T>(IServiceCollection services, IConfiguration configuration, string name, IDictionary<uint, T> value)
+		private static void ConfigureDictionary<T>(IServiceCollection services, IConfiguration configuration, string name, IDictionary<uint, T> value)
 		{
 			void Act(dynamic s)
 			{
